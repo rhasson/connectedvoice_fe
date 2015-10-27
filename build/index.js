@@ -1,18 +1,10 @@
 "use strict";
 
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
+var _interopRequireDefault = require('babel-runtime/helpers/interop-require-default')['default'];
 
 var _configJson = require('../config.json');
 
 var _configJson2 = _interopRequireDefault(_configJson);
-
-var _requestPromise = require('request-promise');
-
-var _requestPromise2 = _interopRequireDefault(_requestPromise);
-
-var _twilio = require('twilio');
-
-var _twilio2 = _interopRequireDefault(_twilio);
 
 var _restify = require('restify');
 
@@ -35,6 +27,8 @@ server.use(_restify2['default'].bodyParser());
 * If successul pass the request to the handlers, if failure return a 403 error
 */
 server.use(function (req, reply, next) {
+	return next();
+
 	_libsVerify_twilioJs2['default'].isValidSignature(req).then(function (isValid) {
 		if (isValid) return next();
 	})['catch'](function (err) {
@@ -44,12 +38,13 @@ server.use(function (req, reply, next) {
 });
 
 server.post('/actions/v0/:id/voice.xml', _libsRoute_handlers.voiceCallHandler);
-server.post('/actions/v0/:id/sms.xml', _libsRoute_handlers.smsCallHandler);
 server.post('/actions/v0/:id/status', _libsRoute_handlers.voiceCallHandler);
 server.post('/actions/v0/:id/action', _libsRoute_handlers.voiceCallHandler);
 server.post('/actions/v0/:id/action/:index', _libsRoute_handlers.voiceCallHandler);
 server.post('/actions/v0/:id/dequeue', _libsRoute_handlers.voiceCallHandler);
 server.post('/actions/v0/:id/wait/:index', _libsRoute_handlers.voiceCallHandler);
+
+server.post('/actions/v0/:id/sms.xml', _libsRoute_handlers.smsCallHandler);
 
 server.listen(9000, function () {
 	console.log('ConnectedVoice FrontEnd Server Started - ', new Date());

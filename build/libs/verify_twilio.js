@@ -1,6 +1,8 @@
 "use strict";
 
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
+var _Promise = require('babel-runtime/core-js/promise')['default'];
+
+var _interopRequireDefault = require('babel-runtime/helpers/interop-require-default')['default'];
 
 var _twilio = require('twilio');
 
@@ -44,14 +46,14 @@ function _verifyRequest(req) {
 				TOKENS.set(params.AccountSid, tok);
 				//return when.resolve(true);
 				var isValid = _twilio2['default'].validateRequest(tok, header, url, params);
-				if (isValid) return Promise.resolve(true);else return Promise.reject(new Error('Signature validation failed'));
+				if (isValid) return _Promise.resolve(true);else return _Promise.reject(new Error('Signature validation failed'));
 			}
 		})['catch'](function (err) {
 			console.log('verifyRequest getTokenFromDb: ', err);
-			return Promise.reject(err);
+			return _Promise.reject(err);
 		});
 	} else {
-		return Promise.reject(new Error('No token found'));
+		return _Promise.reject(new Error('No token found'));
 	}
 }
 
@@ -62,14 +64,14 @@ function getTokenFromDb(asid) {
 		var token = undefined;
 		var status_code = 'status-code' in headers ? headers['status-code'] : 'statusCode' in headers ? headers['statusCode'] : undefined;
 
-		if (status_code !== 200) return Promise.reject(new Error('DB Search for token returned error'));
+		if (status_code !== 200) return _Promise.reject(new Error('DB Search for token returned error'));
 
 		token = _lodash2['default'].result(_lodash2['default'].find(body.rows, 'fields.account_sid', asid), 'fields.auth_token');
 
-		if (token) return Promise.resolve(token);else return Promise.reject(new Error('No token found'));
+		if (token) return _Promise.resolve(token);else return _Promise.reject(new Error('No token found'));
 	})['catch'](function (err) {
 		console.log('getTokenFromDb: ', err);
-		return Promise.reject(new Error('Failed to get token from DB - ' + err));
+		return _Promise.reject(new Error('Failed to get token from DB - ' + err));
 	});
 }
 
