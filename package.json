@@ -17,5 +17,10 @@
   },
   "homepage": "https://github.com/rhasson/connectedvoice_fe#readme",
   "dependencies": {
+    "bluebird": "^2.10.2",
+    "cloudant": "^1.3.0"
+  },
+  "scripts": {
+    "build": "babel src/ -d build/"
   }
 }
