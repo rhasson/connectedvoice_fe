@@ -1,8 +1,6 @@
 "use strict";
 
 import Config from '../config.json';
-import Request from 'request-promise';
-import Twilio from 'twilio';
 import Restify from 'restify';
 import Verify from './libs/verify_twilio.js';
 import {voiceCallHandler, smsCallHandler} from './libs/route_handlers';
@@ -18,6 +16,8 @@ server.use(Restify.bodyParser());
 * If successul pass the request to the handlers, if failure return a 403 error
 */
 server.use(function(req, reply, next) {
+	return next();
+
 	Verify.isValidSignature(req)
 	.then(function(isValid) {
 		if (isValid) return next();
@@ -29,12 +29,13 @@ server.use(function(req, reply, next) {
 });
 
 server.post('/actions/v0/:id/voice.xml', voiceCallHandler);
-server.post('/actions/v0/:id/sms.xml', smsCallHandler);
 server.post('/actions/v0/:id/status', voiceCallHandler);
 server.post('/actions/v0/:id/action', voiceCallHandler);
 server.post('/actions/v0/:id/action/:index', voiceCallHandler);
 server.post('/actions/v0/:id/dequeue', voiceCallHandler);
 server.post('/actions/v0/:id/wait/:index', voiceCallHandler);
+
+server.post('/actions/v0/:id/sms.xml', smsCallHandler);
 
 server.listen(9000, function() {
 	console.log('ConnectedVoice FrontEnd Server Started - ', new Date());
