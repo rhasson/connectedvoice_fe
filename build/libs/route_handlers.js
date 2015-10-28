@@ -1,3 +1,5 @@
+/* connectedvoice FE route handler */
+
 "use strict";
 
 var _regeneratorRuntime = require('babel-runtime/regenerator')['default'];
@@ -47,24 +49,39 @@ function voiceCallHandler(req, reply, next) {
 				throw new Error('Missing request parameters');
 
 			case 9:
-				if (body === undefined) reply.send(200);else reply.send(200, body, { 'content-type': 'application/xml' });
+				if (!(body === undefined)) {
+					context$1$0.next = 13;
+					break;
+				}
+
+				reply.send(200);
+				context$1$0.next = 17;
+				break;
+
+			case 13:
+				body = new Buffer(body, 'base64').toString('utf8');
+				reply.send(200, body, { 'content-type': 'application/xml' });
 				reply.end();
 				return context$1$0.abrupt('return', next());
 
-			case 14:
-				context$1$0.prev = 14;
+			case 17:
+				context$1$0.next = 25;
+				break;
+
+			case 19:
+				context$1$0.prev = 19;
 				context$1$0.t0 = context$1$0['catch'](0);
 
-				console.log('voiceCallHandler Error ', context$1$0.t0);
+				console.log('voiceCallHandler Error ', context$1$0.t0.message);
 				reply.send(402, 'An error occured', { 'content-type': 'application/xml' });
 				reply.end();
 				return context$1$0.abrupt('return');
 
-			case 20:
+			case 25:
 			case 'end':
 				return context$1$0.stop();
 		}
-	}, null, this, [[0, 14]]);
+	}, null, this, [[0, 19]]);
 }
 
 function smsCallHandler(req, reply, next) {
