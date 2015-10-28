@@ -1,3 +1,5 @@
+/* connectedvoice FE route handler */
+
 "use strict";
 
 import Request from 'request-promise';
@@ -17,11 +19,14 @@ export async function voiceCallHandler(req, reply, next) {
 			});
 		} else throw new Error('Missing request parameters')
 		if (body === undefined) reply.send(200);
-		else reply.send(200, body, {'content-type': 'application/xml'});
-		reply.end();
-		return next();
+		else {
+			//may need to: unescape(body)
+			reply.send(200, body, {'content-type': 'application/xml'});
+			reply.end();
+			return next();
+		}
 	} catch(e) {
-		console.log('voiceCallHandler Error ', e);
+		console.log('voiceCallHandler Error ', e.message);
 		reply.send(402, 'An error occured', {'content-type': 'application/xml'});
 		reply.end();
 		return;
