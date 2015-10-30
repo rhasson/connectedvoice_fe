@@ -53,24 +53,26 @@ function voiceCallHandler(req, reply, next) {
 				throw new Error('Missing request parameters');
 
 			case 9:
-				if (body === undefined) reply.send(200);else reply.send(200, body, { 'content-type': 'application/xml' }); //may need to: unescape(body)
+
+				reply.header('content-type', 'application/xml');
+				if (body === undefined) reply.send(200);else reply.send(200, body);
 				reply.end();
 				return context$1$0.abrupt('return', next());
 
-			case 14:
-				context$1$0.prev = 14;
+			case 15:
+				context$1$0.prev = 15;
 				context$1$0.t0 = context$1$0['catch'](0);
 
 				console.log('voiceCallHandler Error ', context$1$0.t0.message);
-				reply.send(402, 'An error occured', { 'content-type': 'application/xml' });
+				reply.send(402, 'An error occured');
 				reply.end();
 				return context$1$0.abrupt('return');
 
-			case 20:
+			case 21:
 			case 'end':
 				return context$1$0.stop();
 		}
-	}, null, this, [[0, 14]]);
+	}, null, this, [[0, 15]]);
 }
 
 function smsCallHandler(req, reply, next) {
@@ -103,22 +105,24 @@ function smsCallHandler(req, reply, next) {
 				throw new Error('Missing request parameters');
 
 			case 9:
-				if (body === undefined) reply.send(200);else reply.send(200, body, { 'content-type': 'application/xml' });
+
+				reply.header('content-type', 'application/xml');
+				if (body === undefined) reply.send(200);else reply.send(200, body);
 				reply.end();
 				return context$1$0.abrupt('return', next());
 
-			case 14:
-				context$1$0.prev = 14;
+			case 15:
+				context$1$0.prev = 15;
 				context$1$0.t0 = context$1$0['catch'](0);
 
 				console.log('smsCallHandler Error ', context$1$0.t0);
-				reply.send(402, 'An error occured', { 'content-type': 'application/xml' });
+				reply.send(402, 'An error occured');
 				reply.end();
 				return context$1$0.abrupt('return');
 
-			case 20:
+			case 21:
 			case 'end':
 				return context$1$0.stop();
 		}
-	}, null, this, [[0, 14]]);
+	}, null, this, [[0, 15]]);
 }
