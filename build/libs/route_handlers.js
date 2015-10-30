@@ -53,7 +53,10 @@ function voiceCallHandler(req, reply, next) {
 				throw new Error('Missing request parameters');
 
 			case 9:
-				if (body === undefined) reply.send(200);else reply.send(200, _lodash2['default'].unescape(body), { 'content-type': 'application/xml' }); //may need to: unescape(body)
+				if (body === undefined) reply.send(200);else {
+					body = new Buffer(body, 'base64').toString('utf8');
+					reply.send(200, body, { 'content-type': 'application/xml' }); //may need to: unescape(body)
+				}
 				reply.end();
 				return context$1$0.abrupt('return', next());
 
