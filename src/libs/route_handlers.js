@@ -19,12 +19,9 @@ export async function voiceCallHandler(req, reply, next) {
 			});
 		} else throw new Error('Missing request parameters')
 		if (body === undefined) reply.send(200);
-		else {
-			//may need to: unescape(body)
-			reply.send(200, body, {'content-type': 'application/xml'});
-			reply.end();
-			return next();
-		}
+		else reply.send(200, body, {'content-type': 'application/xml'});  //may need to: unescape(body)
+		reply.end();
+		return next();
 	} catch(e) {
 		console.log('voiceCallHandler Error ', e.message);
 		reply.send(402, 'An error occured', {'content-type': 'application/xml'});
