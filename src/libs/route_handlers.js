@@ -2,6 +2,7 @@
 
 "use strict";
 
+import _ from 'lodash';
 import Request from 'request-promise';
 
 const voice_server_url = 'http://localhost:7100';
@@ -19,7 +20,7 @@ export async function voiceCallHandler(req, reply, next) {
 			});
 		} else throw new Error('Missing request parameters')
 		if (body === undefined) reply.send(200);
-		else reply.send(200, body, {'content-type': 'application/xml'});  //may need to: unescape(body)
+		else reply.send(200, _.unescape(body), {'content-type': 'application/xml'});  //may need to: unescape(body)
 		reply.end();
 		return next();
 	} catch(e) {
