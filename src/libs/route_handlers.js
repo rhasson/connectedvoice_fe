@@ -4,8 +4,8 @@
 
 import Request from 'request-promise';
 
-const voice_server_url = 'http://localhost:8000';
-const sms_server_url = 'http://localhost:8001';
+const voice_server_url = 'http://localhost:7100';
+const sms_server_url = 'http://localhost:7101';
 
 export async function voiceCallHandler(req, reply, next) {
 	try {
