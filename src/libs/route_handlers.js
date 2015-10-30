@@ -19,13 +19,15 @@ export async function voiceCallHandler(req, reply, next) {
 				body: req.params
 			});
 		} else throw new Error('Missing request parameters')
+
+		reply.header('content-type', 'application/xml');
 		if (body === undefined) reply.send(200);
-		else reply.send(200, body, {'content-type': 'application/xml'});  //may need to: unescape(body)
+		else reply.send(200, body);
 		reply.end();
 		return next();
 	} catch(e) {
 		console.log('voiceCallHandler Error ', e.message);
-		reply.send(402, 'An error occured', {'content-type': 'application/xml'});
+		reply.send(402, 'An error occured');
 		reply.end();
 		return;
 	}
@@ -42,13 +44,15 @@ export async function smsCallHandler(req, reply, next) {
 				body: req.params
 			});
 		} else throw new Error('Missing request parameters')
+
+		reply.header('content-type', 'application/xml');
 		if (body === undefined) reply.send(200);
-		else reply.send(200, body, {'content-type': 'application/xml'});
+		else reply.send(200, body);
 		reply.end();
 		return next();
 	} catch(e) {
 		console.log('smsCallHandler Error ', e);
-		reply.send(402, 'An error occured', {'content-type': 'application/xml'});
+		reply.send(402, 'An error occured');
 		reply.end();
 		return;
 	}
