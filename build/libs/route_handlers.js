@@ -16,8 +16,8 @@ var _requestPromise = require('request-promise');
 
 var _requestPromise2 = _interopRequireDefault(_requestPromise);
 
-var voice_server_url = 'http://localhost:8000';
-var sms_server_url = 'http://localhost:8001';
+var voice_server_url = 'http://localhost:7100';
+var sms_server_url = 'http://localhost:7101';
 
 function voiceCallHandler(req, reply, next) {
 	var body;
