@@ -20,7 +20,10 @@ export async function voiceCallHandler(req, reply, next) {
 			});
 		} else throw new Error('Missing request parameters')
 		if (body === undefined) reply.send(200);
-		else reply.send(200, _.unescape(body), {'content-type': 'application/xml'});  //may need to: unescape(body)
+		else {
+			body = new Buffer(body, 'base64').toString('utf8');
+			reply.send(200, body, {'content-type': 'application/xml'});  //may need to: unescape(body)
+		}
 		reply.end();
 		return next();
 	} catch(e) {
