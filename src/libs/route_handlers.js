@@ -22,12 +22,12 @@ export async function voiceCallHandler(req, reply, next) {
 
 		reply.header('content-type', 'application/xml');
 		if (body === undefined) reply.send(200);
-		else reply.send(200, body);
+		else reply.send(200, body, {'content-type': 'application/xml'});
 		reply.end();
 		return next();
 	} catch(e) {
 		console.log('voiceCallHandler Error ', e);
-		reply.send(402, 'An error occured');
+		reply.send(500, 'An error occured');
 		reply.end();
 		return;
 	}
@@ -47,12 +47,12 @@ export async function smsCallHandler(req, reply, next) {
 
 		reply.header('content-type', 'application/xml');
 		if (body === undefined) reply.send(200);
-		else reply.send(200, body);
+		else reply.send(200, body, {'content-type': 'application/xml'});
 		reply.end();
 		return next();
 	} catch(e) {
 		console.log('smsCallHandler Error ', e);
-		reply.send(402, 'An error occured');
+		reply.send(500, 'An error occured');
 		reply.end();
 		return;
 	}
