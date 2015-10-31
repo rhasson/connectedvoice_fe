@@ -63,7 +63,7 @@ function voiceCallHandler(req, reply, next) {
 				context$1$0.prev = 15;
 				context$1$0.t0 = context$1$0['catch'](0);
 
-				console.log('voiceCallHandler Error ', context$1$0.t0.message);
+				console.log('voiceCallHandler Error ', context$1$0.t0);
 				reply.send(402, 'An error occured');
 				reply.end();
 				return context$1$0.abrupt('return');

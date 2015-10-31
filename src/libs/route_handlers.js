@@ -26,7 +26,7 @@ export async function voiceCallHandler(req, reply, next) {
 		reply.end();
 		return next();
 	} catch(e) {
-		console.log('voiceCallHandler Error ', e.message);
+		console.log('voiceCallHandler Error ', e);
 		reply.send(402, 'An error occured');
 		reply.end();
 		return;
