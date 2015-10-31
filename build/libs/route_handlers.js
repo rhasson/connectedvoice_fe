@@ -55,7 +55,7 @@ function voiceCallHandler(req, reply, next) {
 			case 9:
 
 				reply.header('content-type', 'application/xml');
-				if (body === undefined) reply.send(200);else reply.send(200, body);
+				if (body === undefined) reply.send(200);else reply.send(200, body, { 'content-type': 'application/xml' });
 				reply.end();
 				return context$1$0.abrupt('return', next());
 
@@ -64,7 +64,7 @@ function voiceCallHandler(req, reply, next) {
 				context$1$0.t0 = context$1$0['catch'](0);
 
 				console.log('voiceCallHandler Error ', context$1$0.t0);
-				reply.send(402, 'An error occured');
+				reply.send(500, 'An error occured');
 				reply.end();
 				return context$1$0.abrupt('return');
 
@@ -107,7 +107,7 @@ function smsCallHandler(req, reply, next) {
 			case 9:
 
 				reply.header('content-type', 'application/xml');
-				if (body === undefined) reply.send(200);else reply.send(200, body);
+				if (body === undefined) reply.send(200);else reply.send(200, body, { 'content-type': 'application/xml' });
 				reply.end();
 				return context$1$0.abrupt('return', next());
 
@@ -116,7 +116,7 @@ function smsCallHandler(req, reply, next) {
 				context$1$0.t0 = context$1$0['catch'](0);
 
 				console.log('smsCallHandler Error ', context$1$0.t0);
-				reply.send(402, 'An error occured');
+				reply.send(500, 'An error occured');
 				reply.end();
 				return context$1$0.abrupt('return');
 
