@@ -23,7 +23,6 @@ export async function voiceCallHandler(req, reply, next) {
 		reply.header('content-type', 'application/xml');
 		if (body === undefined) reply.send(200);
 		else reply.send(200, body, {'content-type': 'application/xml'});
-		reply.end();
 		return next();
 	} catch(e) {
 		console.log('voiceCallHandler Error ', e);
@@ -48,7 +47,6 @@ export async function smsCallHandler(req, reply, next) {
 		reply.header('content-type', 'application/xml');
 		if (body === undefined) reply.send(200);
 		else reply.send(200, body, {'content-type': 'application/xml'});
-		reply.end();
 		return next();
 	} catch(e) {
 		console.log('smsCallHandler Error ', e);
