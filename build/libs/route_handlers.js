@@ -56,11 +56,10 @@ function voiceCallHandler(req, reply, next) {
 
 				reply.header('content-type', 'application/xml');
 				if (body === undefined) reply.send(200);else reply.send(200, body, { 'content-type': 'application/xml' });
-				reply.end();
 				return context$1$0.abrupt('return', next());
 
-			case 15:
-				context$1$0.prev = 15;
+			case 14:
+				context$1$0.prev = 14;
 				context$1$0.t0 = context$1$0['catch'](0);
 
 				console.log('voiceCallHandler Error ', context$1$0.t0);
@@ -68,11 +67,11 @@ function voiceCallHandler(req, reply, next) {
 				reply.end();
 				return context$1$0.abrupt('return');
 
-			case 21:
+			case 20:
 			case 'end':
 				return context$1$0.stop();
 		}
-	}, null, this, [[0, 15]]);
+	}, null, this, [[0, 14]]);
 }
 
 function smsCallHandler(req, reply, next) {
@@ -108,11 +107,10 @@ function smsCallHandler(req, reply, next) {
 
 				reply.header('content-type', 'application/xml');
 				if (body === undefined) reply.send(200);else reply.send(200, body, { 'content-type': 'application/xml' });
-				reply.end();
 				return context$1$0.abrupt('return', next());
 
-			case 15:
-				context$1$0.prev = 15;
+			case 14:
+				context$1$0.prev = 14;
 				context$1$0.t0 = context$1$0['catch'](0);
 
 				console.log('smsCallHandler Error ', context$1$0.t0);
@@ -120,9 +118,9 @@ function smsCallHandler(req, reply, next) {
 				reply.end();
 				return context$1$0.abrupt('return');
 
-			case 21:
+			case 20:
 			case 'end':
 				return context$1$0.stop();
 		}
-	}, null, this, [[0, 15]]);
+	}, null, this, [[0, 14]]);
 }
