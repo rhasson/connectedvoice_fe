@@ -14,13 +14,13 @@ module.exports = {
 			period: '1d',
 			count: 5,
 			level: 'info',
-			path: '/usr/local/var/log/fe-routehandler-info.log'
+			path: './logs/fe-routehandler-info.log'
 		}, {
 			type: 'rotating-file',
 			period: '1d',
 			count: 5,
 			level: 'error',
-			path: '/usr/local/var/log/fe-routehandler-error.log'
+			path: './logs/fe-routehandler-error.log'
 		}]
 	}),
 	WebServerLogger: _bunyan2['default'].createLogger({
@@ -30,13 +30,13 @@ module.exports = {
 			period: '1d',
 			count: 3,
 			level: 'info',
-			path: '/usr/local/var/log/fe-webserver-info.log'
+			path: './logs/fe-webserver-info.log'
 		}, {
 			type: 'rotating-file',
 			period: '1d',
 			count: 3,
 			level: 'error',
-			path: '/usr/local/var/log/fe-webserver-error.log'
+			path: './logs/fe-webserver-error.log'
 		}],
 		serializers: {
 			req: _bunyan2['default'].stdSerializers.req
@@ -49,13 +49,13 @@ module.exports = {
 			period: '1d',
 			count: 5,
 			level: 'info',
-			path: '/usr/local/var/log/fe-twiliosignature-info.log'
+			path: './logs/fe-twiliosignature-info.log'
 		}, {
 			type: 'rotating-file',
 			period: '1d',
 			count: 5,
 			level: 'error',
-			path: '/usr/local/var/log/fe-twiliosignature-error.log'
+			path: './logs/fe-twiliosignature-error.log'
 		}]
 	})
 };
