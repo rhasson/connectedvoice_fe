@@ -3,10 +3,6 @@
 
 var _interopRequireDefault = require('babel-runtime/helpers/interop-require-default')['default'];
 
-var _configJson = require('../../config.json');
-
-var _configJson2 = _interopRequireDefault(_configJson);
-
 var _bluebird = require('bluebird');
 
 var _bluebird2 = _interopRequireDefault(_bluebird);
@@ -14,6 +10,10 @@ var _bluebird2 = _interopRequireDefault(_bluebird);
 var _cloudant = require('cloudant');
 
 var _cloudant2 = _interopRequireDefault(_cloudant);
+
+var _configJson = require('../../config.json');
+
+var _configJson2 = _interopRequireDefault(_configJson);
 
 var cloudant = (0, _cloudant2['default'])({
 	account: _configJson2['default'].cloudant.production.account,

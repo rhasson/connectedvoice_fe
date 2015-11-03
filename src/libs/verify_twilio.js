@@ -1,9 +1,12 @@
 "use strict";
 
-import Twilio from 'twilio';
 import _ from 'lodash';
-import LRU from 'lru-cache';
 import Db from './db.js';
+import LRU from 'lru-cache';
+import Twilio from 'twilio';
+import Logger from './logger.js';
+
+let log = Logger.TwilioSignatureLogger;
 
 let TOKENS = LRU({
 		max: 50000,
@@ -16,6 +19,8 @@ function _verifyRequest(req) {
 	let url = req.headers['x-forwarded-proto'] + '://' + req.headers['host'] + req.url;
 	let params = {};
 	let token;
+
+	log.info({sig: header}, 'Verifying Twilio Signature');
 
 	params = _.assign(params, req.params);
 	delete params.id;
@@ -35,10 +40,11 @@ function _verifyRequest(req) {
 			}
 		})
 		.catch(function(err) {
-			console.log('verifyRequest getTokenFromDb: ', err)
+			log.error(e, 'verifyRequest getTokenFromDb')
 			return Promise.reject(err);
 		});
 	} else {
+		log.error('No Token Found');
 		return Promise.reject(new Error('No token found'));
 	}
 }
@@ -59,7 +65,7 @@ function getTokenFromDb(asid) {
 		else return Promise.reject(new Error('No token found'));
 	})
 	.catch(function(err) {
-		console.log('getTokenFromDb: ', err)
+		log.error(err, 'getTokenFromDb');
 		return Promise.reject(new Error('Failed to get token from DB - ' + err));
 	});
 }

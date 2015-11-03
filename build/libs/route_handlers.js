@@ -16,12 +16,18 @@ var _lodash = require('lodash');
 
 var _lodash2 = _interopRequireDefault(_lodash);
 
+var _loggerJs = require('./logger.js');
+
+var _loggerJs2 = _interopRequireDefault(_loggerJs);
+
 var _requestPromise = require('request-promise');
 
 var _requestPromise2 = _interopRequireDefault(_requestPromise);
 
 var voice_server_url = 'http://localhost:7100';
 var sms_server_url = 'http://localhost:7101';
+
+var log = _loggerJs2['default'].RouteHandlerLogger;
 
 function voiceCallHandler(req, reply, next) {
 	var body;
@@ -62,7 +68,7 @@ function voiceCallHandler(req, reply, next) {
 				context$1$0.prev = 14;
 				context$1$0.t0 = context$1$0['catch'](0);
 
-				console.log('voiceCallHandler Error ', context$1$0.t0);
+				log.error(context$1$0.t0, 'voiceCallHandler');
 				reply.send(500, 'An error occured');
 				reply.end();
 				return context$1$0.abrupt('return');
@@ -113,7 +119,7 @@ function smsCallHandler(req, reply, next) {
 				context$1$0.prev = 14;
 				context$1$0.t0 = context$1$0['catch'](0);
 
-				console.log('smsCallHandler Error ', context$1$0.t0);
+				log.error(context$1$0.t0, 'smsCallHandler');
 				reply.send(500, 'An error occured');
 				reply.end();
 				return context$1$0.abrupt('return');

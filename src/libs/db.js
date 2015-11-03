@@ -1,9 +1,9 @@
 /* DB abstraction */
 "use strict";
 
-import config from '../../config.json';
 import Promise from 'bluebird';
 import Cloudant from 'cloudant';
+import config from '../../config.json';
 
 let cloudant = Cloudant({
 		account: config.cloudant.production.account,

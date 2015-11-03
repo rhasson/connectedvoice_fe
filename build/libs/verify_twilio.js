@@ -4,21 +4,27 @@ var _Promise = require('babel-runtime/core-js/promise')['default'];
 
 var _interopRequireDefault = require('babel-runtime/helpers/interop-require-default')['default'];
 
-var _twilio = require('twilio');
-
-var _twilio2 = _interopRequireDefault(_twilio);
-
 var _lodash = require('lodash');
 
 var _lodash2 = _interopRequireDefault(_lodash);
+
+var _dbJs = require('./db.js');
+
+var _dbJs2 = _interopRequireDefault(_dbJs);
 
 var _lruCache = require('lru-cache');
 
 var _lruCache2 = _interopRequireDefault(_lruCache);
 
-var _dbJs = require('./db.js');
+var _twilio = require('twilio');
 
-var _dbJs2 = _interopRequireDefault(_dbJs);
+var _twilio2 = _interopRequireDefault(_twilio);
+
+var _loggerJs = require('./logger.js');
+
+var _loggerJs2 = _interopRequireDefault(_loggerJs);
+
+var log = _loggerJs2['default'].TwilioSignatureLogger;
 
 var TOKENS = (0, _lruCache2['default'])({
 	max: 50000,
@@ -33,6 +39,8 @@ function _verifyRequest(req) {
 	var url = req.headers['x-forwarded-proto'] + '://' + req.headers['host'] + req.url;
 	var params = {};
 	var token = undefined;
+
+	log.info({ sig: header }, 'Verifying Twilio Signature');
 
 	params = _lodash2['default'].assign(params, req.params);
 	delete params.id;
@@ -49,10 +57,11 @@ function _verifyRequest(req) {
 				if (isValid) return _Promise.resolve(true);else return _Promise.reject(new Error('Signature validation failed'));
 			}
 		})['catch'](function (err) {
-			console.log('verifyRequest getTokenFromDb: ', err);
+			log.error(e, 'verifyRequest getTokenFromDb');
 			return _Promise.reject(err);
 		});
 	} else {
+		log.error('No Token Found');
 		return _Promise.reject(new Error('No token found'));
 	}
 }
@@ -70,7 +79,7 @@ function getTokenFromDb(asid) {
 
 		if (token) return _Promise.resolve(token);else return _Promise.reject(new Error('No token found'));
 	})['catch'](function (err) {
-		console.log('getTokenFromDb: ', err);
+		log.error(err, 'getTokenFromDb');
 		return _Promise.reject(new Error('Failed to get token from DB - ' + err));
 	});
 }
