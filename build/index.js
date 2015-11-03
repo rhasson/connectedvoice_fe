@@ -22,6 +22,8 @@ var _libsVerify_twilioJs2 = _interopRequireDefault(_libsVerify_twilioJs);
 
 var _libsRoute_handlers = require('./libs/route_handlers');
 
+var isDebug = process.env['HOME'] === '/Users/roy' ? true : false;
+
 _libsLoggerJs2['default'].WebServerLogger.addSerializers({ res: _restify2['default'].bunyan.serializers.res });
 var log = _libsLoggerJs2['default'].WebServerLogger;
 
@@ -48,7 +50,10 @@ server.on('after', function (request, respose, route) {
 * If successul pass the request to the handlers, if failure return a 403 error
 */
 server.use(function (req, reply, next) {
-	return next();
+	if (isDebug) {
+		log.info('BYPASSING TWILIO SIGNATURE CHECK');
+		return next();
+	}
 
 	_libsVerify_twilioJs2['default'].isValidSignature(req).then(function (isValid) {
 		if (isValid) return next();

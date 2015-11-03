@@ -8,6 +8,8 @@ import Logger from './libs/logger.js';
 import Verify from './libs/verify_twilio.js';
 import {voiceCallHandler, smsCallHandler} from './libs/route_handlers';
 
+let isDebug = process.env['HOME'] === '/Users/roy' ? true : false;
+
 Logger.WebServerLogger.addSerializers({res: Restify.bunyan.serializers.res});
 let log = Logger.WebServerLogger;
 
@@ -34,7 +36,10 @@ server.on('after', function (request, respose, route) {
 * If successul pass the request to the handlers, if failure return a 403 error
 */
 server.use(function(req, reply, next) {
-	return next();
+	if (isDebug) {
+		log.info('BYPASSING TWILIO SIGNATURE CHECK');
+		return next();
+	}
 
 	Verify.isValidSignature(req)
 	.then(function(isValid) {
