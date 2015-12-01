@@ -7,7 +7,7 @@ import Logger from './logger.js';
 import Request from 'request-promise';
 
 const voice_server_url = 'http://localhost:7100';
-const sms_server_url = 'http://localhost:7101';
+const sms_server_url = 'http://localhost:7100';
 
 let log = Logger.RouteHandlerLogger;
 
